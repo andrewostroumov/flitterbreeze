@@ -4,8 +4,8 @@ require "monitoring_service/api_client"
 require "monitoring_service/snapshot"
 require "monitoring_service/memory"
 require "monitoring_service/processor"
-require "monitoring_service/xmlrpc_server"
-require "monitoring_service/xmlrpc_handler"
+require "monitoring_service/xmlrpc/server"
+require "monitoring_service/xmlrpc/handler"
 require 'pry'
 require 'yaml'
 
@@ -28,7 +28,7 @@ module MonitoringService
     end
 
     threads << Thread.new do
-      XMLRPCServer.run
+      XMLRPC::Server.run
     end
 
     threads.each &:join
