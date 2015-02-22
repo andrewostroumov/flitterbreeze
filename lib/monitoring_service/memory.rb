@@ -1,14 +1,13 @@
 module MonitoringService
-  #HACK IT IS A BIG HACK
   class Memory
     attr_accessor :total
     attr_accessor :free
     attr_accessor :available
 
     def collect
-      self.total = get('MemTotal')
-      self.free = get('MemFree')
-      self.available = get('MemAvailable')
+      self.total = get 'MemTotal'
+      self.free = get 'MemFree'
+      self.available = get 'MemAvailable'
       self
     end
 
@@ -23,6 +22,5 @@ module MonitoringService
     def output
       @output ||= `cat /proc/meminfo`
     end
-
   end
 end

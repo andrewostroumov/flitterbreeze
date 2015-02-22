@@ -1,7 +1,7 @@
 require 'xmlrpc/server'
 
 module MonitoringService
-  class XmlrpcServer
+  class XMLRPCServer
     attr_accessor :port
     attr_accessor :instance
 
@@ -15,7 +15,7 @@ module MonitoringService
 
     def self.run
       server = self.new
-      server.instance.add_handler("system", XmlrpcHandler.new)
+      server.instance.add_handler("system", XMLRPCHandler.new)
       server.instance.serve
     end
   end
