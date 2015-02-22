@@ -7,8 +7,8 @@ module MonitoringService
       attr_accessor :server
 
       def initialize
-        @port = MonitoringService.setting['xmlrpc_port']
-        @server = ::XMLRPC::Server.new(port)
+        @port = MonitoringService.settings['xmlrpc_port']
+        @server = ::XMLRPC::Server.new(port, '0.0.0.0')
       end
 
       def self.run

@@ -17,6 +17,14 @@ module MonitoringService
       result[0][0].to_i
     end
 
+    def to_h
+      {
+        total: total,
+        free: free,
+        available: available
+      }
+    end
+
     private
 
     def output

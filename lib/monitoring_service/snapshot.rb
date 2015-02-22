@@ -10,21 +10,11 @@ module MonitoringService
       self
     end
 
-    def to_json
+    def to_h
       {
         snapshot: {
-          memory: {
-            total: memory.total,
-            free: memory.free,
-            available: memory.available
-          },
-          cpu: {
-            model: processor.model,
-            cores_count: processor.cores_count,
-            max_frequency: processor.max_frequency,
-            min_frequency: processor.min_frequency,
-            frequency: processor.frequency,
-          }
+          memory: memory.to_h,
+          cpu: processor.to_h
         }
       }
     end
