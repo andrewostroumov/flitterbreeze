@@ -4,25 +4,29 @@ module MonitoringService
   class ApiClient
     def initialize
       @snapshots_url = "#{MonitoringService.settings['resource']}/snapshots"   
-      @servers_url = "#{MonitoringService.settings['resource']}/servers"
-      @resource = RestClient::Resource.new "#{MonitoringService.settings['resource']}/snapshots", { accept: :json }
+      @server_url = "#{MonitoringService.settings['resource']}/server"
+    end
+
+    def server_state
+      resource = RestClient::Resource.new @server_url, { accept: :json }
+      begin
+        result = resource.get 'X-Server-Token' => MonitoringService.settings['server_token']
+        JSON.parse(result)['state']
+      rescue RestClient::Unauthorized => e
+      end  
     end
 
     def send_snapshot(snapshot)
-      resource = resource(@snapshots_url)
-      resource.post snapshot.to_h, content_type: :json, 'X-Server-Token' => MonitoringService.settings['server_token']
+      resource = RestClient::Resource.new @snapshots_url, { accept: :json }
+      resource.post snapshot.to_h.to_json, content_type: :json, 'X-Server-Token' => MonitoringService.settings['server_token']
       puts "Sended snapshot #{snapshot.to_h} to #{resource.url}"
     end
 
     def send_server_general
       server = Server.new
-      resource = resource("#{@servers_url}/update")
+      resource = RestClient::Resource.new "#{@server_url}/update", { accept: :json }
       resource.patch({ server: server.general }, content_type: :json, 'X-Server-Token' => MonitoringService.settings['server_token'])
       puts "Sended server general info #{server.general} to #{resource.url}"
-    end
-
-    def resource(url)
-      RestClient::Resource.new url, { accept: :json }
     end
   end
 end

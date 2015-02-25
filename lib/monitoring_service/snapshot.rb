@@ -2,19 +2,19 @@ require 'json'
 
 module MonitoringService
   class Snapshot
-    attr_accessor :memory, :processor
-
     def collect
-      self.memory = Memory.new.collect
-      self.processor = Processor.new.collect
+      @memory = Memory.new.collect
+      @processor = Processor.new.collect
+      @block_device = BlockDevice.new.collect
       self
     end
 
     def to_h
       {
         snapshot: {
-          memory: memory.to_h,
-          cpu: processor.to_h
+          memory: @memory.to_h,
+          cpu: @processor.to_h,
+          disks: @block_device.disks
         }
       }
     end
