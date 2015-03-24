@@ -1,17 +1,11 @@
 module MonitoringService
   class Processor
-    attr_accessor :model
-    attr_accessor :cores_count
-    attr_accessor :frequency
-    attr_accessor :max_frequency
-    attr_accessor :min_frequency
-
     def collect
-      self.model = get 'Model name', convert: false
-      self.cores_count = get 'CPU\(s\)'
-      self.max_frequency = get 'CPU max MHz'
-      self.min_frequency = get 'CPU min MHz'
-      self.frequency = get 'CPU MHz'
+      @model = get 'Model name', convert: :to_s
+      @cores_count = get 'CPU\(s\)'
+      @max_frequency = get 'CPU max MHz'
+      @min_frequency = get 'CPU min MHz'
+      @frequency = get 'CPU MHz'
       self
     end
 
@@ -22,11 +16,11 @@ module MonitoringService
     
     def to_h
       {
-        model: model,
-        cores_count: cores_count,
-        max_frequency: max_frequency,
-        min_frequency: min_frequency,
-        frequency: frequency,
+        model: @model,
+        cores_count: @cores_count,
+        max_frequency: @max_frequency,
+        min_frequency: @min_frequency,
+        frequency: @frequency,
       }
     end
 

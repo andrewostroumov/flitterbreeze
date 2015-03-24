@@ -6,8 +6,8 @@ require 'monitoring_service/version'
 Gem::Specification.new do |spec|
   spec.name          = "monitoring_service"
   spec.version       = MonitoringService::VERSION
-  spec.authors       = ["Arthur Lugovoy"]
-  spec.email         = ["artlugovoy@gmail.com"]
+  spec.authors       = ['Arthur Lugovoy', 'Andrew Ostroumov']
+  spec.email         = ['artlugovoy@gmail.com', 'andrew.ostroumov@gmail.com']
   spec.summary       = %q{TODO: Write a short summary. Required.}
   spec.description   = %q{TODO: Write a longer description. Optional.}
   spec.homepage      = ""

@@ -14,12 +14,12 @@ require 'yaml'
 module MonitoringService
   
   class << self
-    attr_accessor :settings
+    attr_accessor :config
   end
 
   
   def self.run
-    @settings = Config.instance.settings
+    @config = Config.instance
     threads = []
     threads << Thread.new do
       api_client = ApiClient.new
@@ -27,7 +27,7 @@ module MonitoringService
         loop do
           snapshot = Snapshot.new.collect
           api_client.send_snapshot(snapshot)
-          sleep settings['sending_data_interval']
+          sleep config.settings['sending_data_interval']
         end
       end
     end

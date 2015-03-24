@@ -1,13 +1,9 @@
 module MonitoringService
   class Memory
-    attr_accessor :total
-    attr_accessor :free
-    attr_accessor :available
-
     def collect
-      self.total = get 'MemTotal'
-      self.free = get 'MemFree'
-      self.available = get 'MemAvailable'
+      @total = get 'MemTotal'
+      @free = get 'MemFree'
+      @available = get 'MemAvailable'
       self
     end
 
@@ -19,9 +15,9 @@ module MonitoringService
 
     def to_h
       {
-        total: total,
-        free: free,
-        available: available
+        total: @total,
+        free: @free,
+        available: @available
       }
     end
 
